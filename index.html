@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maquete de Stands</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Local CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <header>
+                <h1>Maquete Interativa</h1>
+                <p class="instructions">
+                    <strong>Como usar:</strong><br>
+                    • <b>Clique no mapa</b> para adicionar novos pontos à rota.<br>
+                    • <b>Arraste</b> as bolinhas vermelhas para ajustar o caminho.<br>
+                    • <b>Clique com o botão direito</b> em uma bolinha para removê-la.
+                </p>
+                <div class="stats">
+                    <div class="stat-box">
+                        <span id="total-stands">0</span>
+                        <label>Stands (3x3m)</label>
+                    </div>
+                    <div class="stat-box">
+                        <span id="total-distance">0m</span>
+                        <label>Distância</label>
+                    </div>
+                </div>
+                <div class="actions" style="display:flex; gap:10px; margin-top:15px;">
+                    <button id="btn-export" style="flex:1; padding:8px; border:none; background:#3b82f6; color:white; border-radius:4px; cursor:pointer;">Exportar Backup</button>
+                    <label for="btn-import" style="flex:1; padding:8px; border:1px solid #cbd5e1; background:white; color:#64748b; border-radius:4px; cursor:pointer; text-align:center; font-size:0.8rem; display:flex; align-items:center; justify-content:center;">Importar</label>
+                    <input type="file" id="btn-import" accept=".json" style="display:none;">
+                </div>
+            </header>
+            <div class="stands-list" id="stands-list">
+                <!-- Stand items will be injected here via JS -->
+            </div>
+        </aside>
+        <main class="map-container">
+            <div id="map"></div>
+        </main>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <!-- Turf.js -->
+    <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+    <!-- Supabase JS -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <!-- Local JS -->
+    <script src="script.js"></script>
+</body>
+</html>
