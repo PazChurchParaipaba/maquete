@@ -8,11 +8,11 @@ let eliminatedStands = {}; // Armazena os stands eliminados: { 1: true }
 
 const supabaseUrl = 'https://groezaseypdbpgymgpvo.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdyb2V6YXNleXBkYnBneW1ncHZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjYwNjkxNjYsImV4cCI6MjA4MTY0NTE2Nn0.5U5QeoGmZn_i9Y8POoUCkatBUAdSW-cjHRyfxpm_pyM';
-const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 // Função para carregar dados do Supabase
 async function loadData() {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
         .from('maquete_state')
         .select('data')
         .eq('id', 1)
@@ -29,7 +29,7 @@ async function loadData() {
 loadData();
 
 // Escuta em tempo real as mudanças no banco
-supabase
+supabaseClient
     .channel('custom-all-channel')
     .on(
         'postgres_changes',
@@ -50,7 +50,7 @@ supabase
 function saveData() {
     const data = { waypoints, standNames, eliminatedStands };
     // Envia a atualização em background (fire and forget)
-    supabase.from('maquete_state').update({ data: data }).eq('id', 1).then(({error}) => {
+    supabaseClient.from('maquete_state').update({ data: data }).eq('id', 1).then(({error}) => {
         if(error) console.error("Erro ao salvar no Supabase:", error);
     });
 }
